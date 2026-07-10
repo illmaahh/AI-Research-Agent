@@ -1,0 +1,53 @@
+# ==============================================================================
+# AI Research Agent — Dependencies
+# IBM SkillsBuild AICTE Internship Project
+# ==============================================================================
+
+# ------------------------------------------------------------------------------
+# Web UI
+# ------------------------------------------------------------------------------
+streamlit>=1.35.0          # Main UI framework — renders the browser-based app
+
+# ------------------------------------------------------------------------------
+# IBM Watson / Granite
+# ------------------------------------------------------------------------------
+ibm-watsonx-ai>=1.1.2      # Official IBM SDK — access Granite LLM endpoints
+                            # on IBM Cloud Lite (text generation + embeddings)
+
+# ------------------------------------------------------------------------------
+# PDF Processing
+# ------------------------------------------------------------------------------
+# PyMuPDF (fitz) is NOT used because its binary wheel (cp310-abi3-win_amd64)
+# links against internal CPython symbols that were removed in CPython 3.14,
+# causing an ImportError at startup.  pypdf is a pure-Python replacement
+# (wheel tag: py3-none-any) that works on every CPython version ≥ 3.8.
+pypdf>=5.0.0                # Pure-Python PDF parser — extracts text, metadata,
+                            # and page count from uploaded research papers.
+                            # No binary extensions; compatible with Python 3.14+.
+
+# ------------------------------------------------------------------------------
+# RAG — Vector Store & Embeddings
+# ------------------------------------------------------------------------------
+langchain>=0.2.0            # Orchestration framework — chains, prompts, retrievers
+langchain-community>=0.2.0  # Community integrations (FAISS vector store wrapper,
+                            # document loaders, etc.)
+faiss-cpu>=1.8.0            # In-process vector similarity search (CPU build)
+                            # Stores and retrieves document chunk embeddings locally
+
+# ------------------------------------------------------------------------------
+# Text Splitting
+# ------------------------------------------------------------------------------
+tiktoken>=0.7.0             # Token-aware text splitter — ensures chunks fit inside
+                            # Granite's context window without truncation
+
+# ------------------------------------------------------------------------------
+# Environment & Configuration
+# ------------------------------------------------------------------------------
+python-dotenv>=1.0.0        # Loads IBM API key + project ID from a .env file
+                            # so credentials are never hard-coded
+
+# ------------------------------------------------------------------------------
+# Utilities
+# ------------------------------------------------------------------------------
+requests>=2.32.0            # HTTP client — used for any direct REST calls to
+                            # IBM Cloud APIs if needed alongside the SDK
